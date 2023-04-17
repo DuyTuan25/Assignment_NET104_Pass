@@ -229,13 +229,7 @@ namespace Assignment_NET104_TuanNDPH25862.Controllers
 			if (_sanPhamChiTietService.UpdateSanPhamChiTiet(p)) return RedirectToAction("ShowSP");
 			else return BadRequest();
 		}
-		//public IActionResult EditTrangThai(int TrangThaiHD,Guid ID)
-		//{
-		//	var hd = _iHoaDonService.GetHoaDonById(ID);
-		//	hd.TrangThai = TrangThaiHD;
-		//	_iHoaDonService.UpdateHoaDon(hd);
-		//	return RedirectToAction("HoaDon");
-		//}
+
 		[HttpPost]
 		public IActionResult Create(SanPhamChiTiet p, [Bind] IFormFile imageFile)
 		{
