@@ -1,0 +1,49 @@
+﻿@model Assignment_NET104_TuanNDPH25862.Models.SanPhamChiTiet
+@using Assignment_NET104_TuanNDPH25862.Models;
+@using Assignment_NET104_TuanNDPH25862.IService;
+@using Assignment_NET104_TuanNDPH25862.Service;
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<div>
+	<h4>@Html.DisplayFor(model => model.TenSanPham)</h4>
+	<hr />
+
+	<style>
+		input[type="number"]{
+			outline:none;
+			-moz-appearance: textfield;
+		}
+
+		input[type="number"]::-webkit-outer-spin-button,
+		input[type="number"]::-webkit-inner-spin-button{
+		-webkit-appearance:none;
+		margin:0;
+		};
+	</style>
+	<form method="post" asp-action="AddToGioHang" enctype="multipart/form-data">
+		<table>
+			<div class="row">
+				<div class="col-md-6"><img src="/Images/@Html.DisplayFor(model => model.Image)" style="width:600px;height:650px" /></div>
+				<div class="col-md-6">
+					<input asp-for="ID" name="IDSPCT" class="form-control" style="display:none" />
+					<h3><p><b>Giá bán:</b> @Model.GiaBan.ToString("#,##0") VNĐ</p></h3><br />
+					<h3><p><b>Số lượng tồn:</b> @Html.DisplayFor(model => model.SoLuongTon)</p></h3><br />
+					<h3><p><b>Nhà cung cấp:</b> @Html.DisplayFor(model => model.NhaCungCap)</p></h3><br />
+					<h3><p><b>Trạng thái:</b> @(Model.TrangThai  == 0 ? "Còn hàng" : Model.TrangThai == 1 ? "Hết hàng" : "Ngừng kinh doanh")</p></h3><br />
+					<h3><p><b style="display:flex">Số lượng:&nbsp;<input type="number" name="SoLuong" class="form-control" value="1" style="width:75px"></b></p></h3><br />
+					<div style="display:flex;justify-content:center;">
+						@*<a href="@Url.Action("AddToGioHang", new { id = Model.ID })">*@
+							<button class="btn btn-primary" style="font-size:30px">Thêm vào giỏ hàng</button>
+						@*</a>*@
+					</div>
+				</div>
+		</table>
+	</form>
+</div>
+<div>
+	<br />
+	<a asp-action="SanPham">Quay lại danh sách</a>
+</div>

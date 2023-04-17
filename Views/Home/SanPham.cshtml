@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SanPhamChiTietView>
+
+@{
+	ViewData["Title"] = "SanPham";
+}
+
+<h1>Sản phẩm</h1>
+<form class="d-flex" role="search" asp-action="SanPham" enctype="multipart/form-data">
+	<input class="form-control me-2" type="search" placeholder="Giá min" aria-label="Search" name="giamin">
+	<input class="form-control me-2" type="search" placeholder="Giá max" aria-label="Search" name="giamax">
+	<button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<table class="table">
+	<div class="row" style="margin-top: 45px;margin-bottom: 50px;">
+		@foreach (var x in Model)
+		{
+			<div class="col-md-3">
+				<a href="@Url.Action("Details","Home",new{id=x.ID})"><img src="/Images/@x.Image" alt="" width="100%" height="400px"></a>
+				<center style="color: darkgray;"><b>@(x.TenSanPham)</b></center>
+				<center><b>@(x.GiaBan.ToString("#,##0")) VNĐ</b></center><br>
+				<center><b>@(x.SoLuongTon)</b></center><br>
+			</div>
+		}
+		<br />
+		<center>
+			<button class="btnchuyen">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					 fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+					<path fill-rule="evenodd"
+						  d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+					<path fill-rule="evenodd"
+						  d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
+				</svg>
+			</button>
+			<button class="btnchuyen" style="background-color: black;">1</button>
+			<button class="btnchuyen">2</button>
+			<button class="btnchuyen">3</button>
+			. . .
+			<button class="btnchuyen">99</button>
+			<button class="btnchuyen">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					 fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+					<path fill-rule="evenodd"
+						  d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
+					<path fill-rule="evenodd"
+						  d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
+				</svg>
+			</button>
+		</center>
+	</div>
+</table>

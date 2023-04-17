@@ -1,0 +1,9 @@
+﻿@{
+	Layout = null; // Không sử dụng layout
+}
+<form asp-action="DangNhapNew" enctype="multipart/form-data">
+	User<input type="text" name="ten"/><br />
+	Password<input type="text" name="mk"/><br />
+	<p style="color:red">@ViewBag.ThongBao</p>
+	<button type="submit">Đăng nhập</button>
+</form>

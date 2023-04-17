@@ -1,0 +1,228 @@
+﻿@model IEnumerable<Assignment_NET104_TuanNDPH25862.Models.GioHangChiTietView>
+
+@{
+	ViewData["Title"] = "GioHangChiTiet";
+	List<string> extensions = new List<string>()
+	{
+		".png", ".jpg", ".jpeg", ".gif", ".pdf", ".raw", ".bmp", ".tif",".jfif"
+	};
+}
+<style>
+	
+
+	td, th {
+		text-align: center;
+	}
+
+	#mid_icon {
+		padding-top: 38px;
+		text-align: center;
+	}
+
+	#mid {
+		padding-top: 45px;
+		text-align: center;
+	}
+
+	.wrapper {
+		max-width: 500px;
+		width: 100%;
+		background: #fff;
+		margin: 20px auto;
+		box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
+	}
+
+		.wrapper .title {
+			font-size: 24px;
+			font-weight: 700;
+			margin-bottom: 25px;
+			color: black;
+			text-transform: uppercase;
+			text-align: center;
+		}
+
+		.wrapper .form {
+			width: 100%;
+		}
+
+			.wrapper .form .input_field {
+				margin-bottom: 15px;
+				display: flex;
+				align-items: center;
+			}
+
+				.wrapper .form .input_field label {
+					width: 200px;
+
+					margin-right: 10px;
+					font-size: 14px;
+				}
+
+				.wrapper .form .input_field input,
+				.wrapper .form .input_field .textarea {
+					width: 100%;
+					outline: none;
+					border: 1px solid #d5dbd9;
+					font-size: 15px;
+					padding: 8px 10px;
+					border-radius: 6px;
+					transition: all 0.3s ease;
+				}
+
+	v {
+		width: 110%;
+		outline: none;
+		font-size: 15px;
+		padding: 8px 10px;
+		transition: all 0.3s ease;
+	}
+
+	.wrapper .form .input_field .textarea {
+		resize: none;
+		height: 145px;
+	}
+
+	#border_hd{
+		border: 3px outset #d21997;
+		border-radius:10px;
+		padding:20px;
+	}
+</style>
+<h1>Giỏ hàng</h1>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>
+				Ảnh minh họa
+			</th>
+			<th>
+				Tên sản phẩm
+			</th>
+			<th>
+				Số lượng
+			</th>
+			<th>
+				Đơn giá
+			</th>
+			<th>
+				Giá thành
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			
+			<tr>
+				
+				<td>
+					<a href="@Url.Action("Details", new { id = item.IDSPCT })">
+					@{
+						string a = System.IO.Path.GetExtension(item.Image);
+					}
+					@if (@extensions.Contains(System.IO.Path.GetExtension(item.Image).Trim()))
+					{
+						<img src="/Images/@item.Image" style="height:100px;width:80px">
+					}
+					else
+					{
+						<span>Ảnh lỗi rồi =)))</span>
+					}
+					</a>
+				</td>
+				<td id="mid">
+					@item.TenSanPham
+				</td>
+				<td id="mid">
+					@*<div class="input-group">
+				<div asp-action="EditSoLuongTru" enctype="multipart/form-data">
+				<a href="@Url.Action("EditSoLuongTru", new { id = item.ID })"><button id="myButton">-</button></a>
+				</div>
+				<input type="text" id="myInput" name="SoLuong" value="@item.SoLuong" readonly>
+				<input type="text" name="IDSPCT" value="@item.IDSPCT" class="form-control">
+				<div asp-action="EditSoLuongTru" enctype="multipart/form-data">
+				<a href="@Url.Action("EditSoLuongCong", new { id = item.ID })"><button id="myButton">+</button></a>
+				</div>
+				</div>*@
+					@item.SoLuong
+				</td>
+				<td id="mid">
+					@item.DonGia.ToString("#,##0")
+				</td>
+				<td id="mid">
+					@item.GiaThanh.ToString("#,##0") VNĐ
+				</td>
+				<td id="mid_icon">
+					<a href="@Url.Action("DeleteFromCart", new { id = item.ID })">
+						<button type="button" id="btn_action" class="btn btn-danger">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+								<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+							</svg>
+						</button>
+					</a>
+				</td>
+			</tr>
+			
+		}
+	</tbody>
+</table>
+<div>
+	<p style="margin-left:950px">
+		Tổng tiền: @ViewBag.TongTien.ToString("#,##0") VNĐ
+	</p>
+</div>
+<br />
+<br />
+<form asp-action="AddHoaDon_ThanhToan" enctype="multipart/form-data">
+<div class="wrapper">
+	<div class="form" id="border_hd">
+		<div class="title">
+			Thông tin cần thiết
+		</div>
+		<div class="form">
+			<div class="input_field">
+				<label>Tên người nhận</label>
+				<input type="text" class="form-control" name="TenNguoiNhan">
+			</div>
+			<div class="input_field">
+				<label>Số điện thoại</label>
+				<input type="text" class="form-control" name="SoDienThoai">
+			</div>
+			<div class="input_field">
+				<label>Tỉnh/Thành phố</label>
+				<input type="text" class="form-control" name="Tinh_TP">
+			</div>
+			<div class="input_field">
+				<label>Quận/Huyện/Thị xã</label>
+				<input type="text" class="form-control" name="Quan_Huyen_TX">
+			</div>
+			<div class="input_field">
+				<label>Xã/Phường/Thị Trấn</label>
+				<input type="text" class="form-control" name="Xa_Phuong_TT">
+			</div>
+			<div class="input_field">
+				<label>Số nhà</label>
+				<input type="text" class="form-control" name="SoNha">
+			</div>
+			<div class="input_field">
+				<label>Ghi chú</label>
+				<textarea type="text" class="form-control" name="GhiChu"></textarea>
+			</div>
+			<div class="input_field">
+				<label>Tổng tiền</label>
+				<v><b>@ViewBag.TongTien.ToString("#,##0") VNĐ</b></v>
+			</div>
+			<center>Vui lòng thanh toán trước khi hoàn tất đặt hàng</center>
+			<center><img src="/Images/qr.jpg" style="width:200px;height:200px" /></center>
+			<center>Ngân hàng Quân đội - MB Bank</center>
+			<center>Số tài khoản: 0824397988</center>
+			<center>Chủ tài khoản: NGUYEN DUY TUAN</center><br />
+			<center><button type="submit" class="btn btn-primary" style="font-family: inherit;border: 1px solid transparent;font-weight: 500;height:50px;border-radius:10px">Hoàn tất đặt hàng</button></center>
+		</div>
+	</div>
+</div>
+</form>
+<script>
+</script>

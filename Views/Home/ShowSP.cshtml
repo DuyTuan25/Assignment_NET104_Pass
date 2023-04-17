@@ -1,0 +1,149 @@
+﻿@model IEnumerable<SanPhamChiTietView>
+
+@{
+	ViewData["Title"] = "Danh sách sản phẩm";
+	List<string> extensions = new List<string>()
+	{
+		".png", ".jpg", ".jpeg", ".gif", ".pdf", ".raw", ".bmp", ".tif",".jfif"
+	};
+}
+<style>
+	td,th{
+		text-align: center;
+	}
+	#mid_icon {
+		padding-top: 38px;
+		text-align: center;
+	}
+
+	#mid {
+		text-align:center;
+		padding-top: 45px;
+	}
+
+	#btn_action {
+		width: 40px;
+		height: 40px;
+		border: none;
+		margin-right: 5px;
+		border-radius: 10px;
+	}
+</style>
+<h1>Danh sách sản phẩm</h1>
+
+<p>
+	
+	<a asp-action="Create">
+		<button class="btn btn-primary">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16" style="margin-bottom:3px;">
+				<path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+			</svg> Thêm sản phẩm
+		</button>
+	</a>
+</p>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>
+				Tên SP
+			</th>
+			<th>
+				Chất liệu
+			</th>
+			<th>
+				Giá bán
+			</th>
+			<th>
+				Số lượng tồn
+			</th>
+			<th>
+				Nhà cung cấp
+			</th>
+			<th>
+				Mô tả
+			</th>
+			<th>
+				Ảnh minh họa
+			</th>
+			<th>
+				Trạng thái
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td id="mid">
+					@*@if (item.SoLuongTon*item.GiaBan>10000000)
+					{
+						<p style="color:darkorange">@item.TenSanPham</p>
+					}
+					else *@
+					@item.TenSanPham
+
+					
+				</td>
+				<td id="mid">
+					@(item.TenChatLieu)
+				</td>
+				<td id="mid">
+					@item.GiaBan.ToString("#,##0")
+				</td>
+				<td id="mid">
+					@Html.DisplayFor(modelItem => item.SoLuongTon)
+				</td>
+				<td id="mid">
+					@Html.DisplayFor(modelItem => item.NhaCungCap)
+				</td>
+				<td id="mid">
+					@Html.DisplayFor(modelItem => item.MoTa)
+				</td>
+				<td>
+					@{
+						string a = System.IO.Path.GetExtension(item.Image);
+					}
+					@if (@extensions.Contains(System.IO.Path.GetExtension(item.Image).Trim()))
+					{
+						<img src="/Images/@item.Image" style="height:100px;width:80px">
+					}
+					else if (System.IO.Path.GetExtension(item.Image) == string.Empty)
+					{
+						<span> Chưa có ảnh minh họa</span>
+					}
+					else
+					{
+						<span>Ảnh lỗi rồi =)))</span>
+					}
+				</td>
+				<td id="mid">
+					@(item.TrangThai == 0 ? "Còn hàng" : item.TrangThai == 1 ? "Hết hàng" : "Ngừng kinh doanh")
+				</td>
+				<td id="mid_icon">
+					<a href="@Url.Action("Edit", new { id = item.ID })">
+						<button type="button" id="btn_action" class="btn btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+								<path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0Zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708ZM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11Z" />
+							</svg>
+						</button>
+					</a>
+					<a href="@Url.Action("Details", new { id = item.ID })">
+						<button type="button" id="btn_action" class="btn btn-info" style="color:aliceblue">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+								<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+							</svg>
+						</button>
+					</a>
+					<a href="@Url.Action("Delete", new { id = item.ID })">
+						<button type="button" id="btn_action" class="btn btn-danger">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+								<path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
+							</svg>
+						</button>
+					</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

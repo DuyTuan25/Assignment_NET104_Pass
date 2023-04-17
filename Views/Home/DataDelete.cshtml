@@ -1,0 +1,85 @@
+﻿@using Assignment_NET104_TuanNDPH25862.IService;
+@using Assignment_NET104_TuanNDPH25862.Service;
+
+@model IEnumerable<Assignment_NET104_TuanNDPH25862.Models.SanPhamChiTiet>
+
+@{
+	ViewData["Title"] = "DataDelete";
+}
+
+<h1>DataDelete</h1>
+
+<p>
+	<a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.TenSanPham)
+			</th>
+			<th>
+				Tên chất liệu
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.GiaBan)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.SoLuongTon)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.NhaCungCap)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.MoTa)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Image)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TrangThai)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.TenSanPham)
+				</td>
+				<td>
+					@{
+						string ten;
+						IChatLieuService _chatLieuService = new ChatLieuService();
+						ten = _chatLieuService.GetAllChatLieus().FirstOrDefault(c=>c.ID==item.IDChatLieu).TenChatLieu;
+					}
+					@ten
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.GiaBan)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SoLuongTon)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NhaCungCap)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.MoTa)
+				</td>
+				<td>
+					<img src="/Images/@Html.DisplayFor(modelItem => item.Image)" style="height:100px;width:80px">
+				</td>
+				<td>
+					@(item.TrangThai == 0 ? "Còn hàng" : item.TrangThai == 1 ? "Hết hàng" : "Ngừng kinh doanh")
+				</td>
+				<td>
+					@Html.ActionLink("RollBack", "RollBack", new {  id=item.ID  })
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<Assignment_NET104_TuanNDPH25862.Models.HoaDonChiTietView>
+
+@{
+	ViewData["Title"] = "HoaDonChiTiet";
+	int stt = 1;
+}
+
+<h1>Mã hóa đơn: @ViewBag.MaHD</h1>
+<h4>Tổng hóa đơn: @Convert.ToInt32(ViewBag.TongTienHDCT.ToString().Substring(0,ViewBag.TongTienHDCT.ToString().Length-3)).ToString("#,##0")</h4>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				Số thứ tự
+			</th>
+			<th>
+				Ảnh minh họa
+			</th>
+			<th>
+				Tên sản phẩm
+			</th>
+			<th>
+				Số lượng
+			</th>
+			<th>
+				Đơn giá
+			</th>
+			<th>
+				Thành tiền
+			</th>
+			<th>
+				Trạng thái
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var x in Model)
+		{
+			<tr>
+				<td>
+					@(stt++)
+				</td>
+				<td>
+					<img src="/Images/@x.Image" style="width:80px;height:100px">
+				</td>
+				<td>
+					@x.TenSanPham
+				</td>
+				<td>
+					@x.SoLuong
+				</td>
+				<td>
+					@Convert.ToInt32(x.DonGia.ToString().Substring(0,x.DonGia.ToString().Length-3)).ToString("#,##0")
+				<td>
+						@Convert.ToInt32(x.ThanhTien.ToString().Substring(0,x.ThanhTien.ToString().Length-3)).ToString("#,##0")
+				</td>
+				<td>
+						@(x.TrangThai == 1 ? "Đã thanh toán" : "Chưa thanh toán")
+				</td>
+					@*<td>
+			@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+			@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+			@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+			</td>*@
+			</tr>
+		}
+	</tbody>
+</table>

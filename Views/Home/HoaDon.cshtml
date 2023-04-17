@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Assignment_NET104_TuanNDPH25862.Models.HoaDon>
+
+@{
+    ViewData["Title"] = "HoaDon";
+}
+
+<h1>HoaDon</h1>
+<style>
+    td, th {
+        text-align: center;
+    }
+
+    #btn_action {
+        width: 40px;
+        height: 40px;
+        border: none;
+        margin-right: 5px;
+        border-radius: 10px;
+    }
+</style>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã hóa đơn
+            </th>
+            <th>
+                Ngày tạo
+            </th>
+            <th>
+                Tên người nhận
+            </th>
+            <th>
+                Số điện thoại
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+            <th>
+                Ghi chú
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var x in Model) {
+        <tr>
+            <td>
+                @x.MaHD
+            </td>
+            <td>
+                @x.NgayTao
+            </td>
+            <td>
+                @x.TenNguoiNhan
+            </td>
+            <td>
+                @x.SoDienThoai
+            </td>
+            <td>
+                @x.DiaChi
+            </td>
+            <td>
+                    @Convert.ToInt32(x.TongTien.ToString().Substring(0,x.TongTien.ToString().Length-3)).ToString("#,##0")
+            </td>
+            <td>
+                @x.GhiChu
+            </td>
+            <td>
+           @*     <form asp-action="EditTrangThai" enctype="multipart/form-data">
+						<select class="form-control" id="trangthai" name="TrangThaiHD">
+							<option value="0">Chưa thanh toán</option>
+							<option value="1">Đã thanh toán</option>
+							<option value="2">Đang vận chuyển</option>
+						</select>
+                    </form>*@
+                @(x.TrangThai == 1 ? "Đã thanh toán" : "Chưa thanh toán")
+
+                    
+            </td>
+            <td>
+                    <a href="@Url.Action("HoaDonChiTiet", new { id = x.ID })">
+                        <button type="button" id="btn_action" class="btn btn-info" style="color:aliceblue">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                            </svg>
+                        </button>
+                    </a>
+                    @*<a href="@Url.Action("EditTrangThai", new { id = x.ID })">
+                        <button type="button" id="btn_action" class="btn btn-info" style="color:aliceblue">
+                            Update
+                        </button>
+                    </a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
